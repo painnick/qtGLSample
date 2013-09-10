@@ -53,3 +53,16 @@ void MainWindow::on_action_New_triggered()
     // Update window-title
     this->setWindowTitle(fileName);
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    int result = QMessageBox::warning(this,
+                                      tr("프로그램 종료"),
+                                      tr("정말 프로그램을 종료하시겠습니까?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+
+    if(result != QMessageBox::Yes)
+    {
+        event->ignore();
+    }
+}

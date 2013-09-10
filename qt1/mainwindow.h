@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QImage>
+#include <QCloseEvent>
 
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
@@ -22,6 +23,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent *event);
     
 private slots:
 
