@@ -18,8 +18,6 @@ MainWindow::~MainWindow()
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QRect rect = ui->centralWidget->geometry();
-    rect.setHeight(rect.height() - ui->mainToolBar->geometry().height() - ui->mainToolBar->geometry().height());
-    //ui->scrollArea->setGeometry(rect);
     ui->glViewer->setGeometry(rect);
 }
 

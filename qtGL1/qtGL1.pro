@@ -14,11 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    glwidget.cpp \
     myqglviewer.cpp
 
 HEADERS  += mainwindow.h \
-    glwidget.h \
     myqglviewer.h
 
 FORMS    += mainwindow.ui

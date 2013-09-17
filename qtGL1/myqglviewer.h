@@ -9,13 +9,13 @@ class MyQGLViewer : public QGLViewer
     Q_OBJECT
 public:
     explicit MyQGLViewer(QWidget *parent = 0);
+    void resizeGL(int width, int height);
 
 
 protected:
     void initializeGL();
     void init();
     void draw();
-    void resizeGL(int width, int height);
 
 signals:
     
