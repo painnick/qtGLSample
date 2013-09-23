@@ -2,19 +2,23 @@
 #include <GL/glut.h>
 #include <QDebug>
 
-MyQGLViewer::MyQGLViewer(QWidget *parent) :
-    QGLViewer(parent)
-{
-}
+using namespace qglviewer;
+using namespace std;
 
-void MyQGLViewer::initializeGL()
+MyQGLViewer::MyQGLViewer(QWidget* parent, const QGLWidget* shareWidget)
+    : QGLViewer(parent, shareWidget)
 {
-    this->camera()->setType(qglviewer::Camera::ORTHOGRAPHIC);
-}
+    // Move camera according to viewer type (on X, Y or Z axis)
+    camera()->setPosition(Vec(0.0, 0.0, 1.0));
+    camera()->lookAt(sceneCenter());
 
-void MyQGLViewer::init()
-{
-    // Do nothing
+    camera()->setType(Camera::ORTHOGRAPHIC);
+    camera()->showEntireScene();
+
+    // Forbid rotation
+    WorldConstraint* constraint = new WorldConstraint();
+    constraint->setRotationConstraintType(AxisPlaneConstraint::FORBIDDEN);
+    camera()->frame()->setConstraint(constraint);
 }
 
 void MyQGLViewer::draw()
@@ -24,25 +28,28 @@ void MyQGLViewer::draw()
     glColor3f(1,0,0);
     glBegin(GL_POLYGON);
     glVertex2f(0,0);
-    glVertex2f(100,0);
-    glVertex2f(100,100);
-    glVertex2f(0,100);
+    glVertex2f(1,0);
+    glVertex2f(1,1);
+    glVertex2f(0,1);
     glEnd();
 
-//    glPushMatrix();
-//    //glTranslatef(30, 30, -1);
-//    glColor3f(0,0,1);
-//    glutWireCone(2, 4, 64, 8);
-//    glPopMatrix();
-
-//    glFlush();
-}
-
-void MyQGLViewer::resizeGL(int width, int height)
-{
-//    qglviewer::Vec cameraPos = qglviewer::Vec(width / 2, height / 2, 0);
-//    this->camera()->setPosition(cameraPos);
-
-//    qglviewer::Vec lookAtPos = qglviewer::Vec(0, 0, 0);
-//    this->camera()->lookAt(lookAtPos);
+    const float nbSteps = 200.0;
+    glBegin(GL_QUAD_STRIP);
+    for (float i=0; i<nbSteps; ++i)
+      {
+        float ratio = i/nbSteps;
+        float angle = 21.0*ratio;
+        float c = cos(angle);
+        float s = sin(angle);
+        float r1 = 1.0 - 0.8f*ratio;
+        float r2 = 0.8f - 0.8f*ratio;
+        float alt = ratio - 0.5f;
+        const float nor = 0.5f;
+        const float up = sqrt(1.0-nor*nor);
+        glColor3f(1.0-ratio, 0.2f , ratio);
+        glNormal3f(nor*c, up, nor*s);
+        glVertex3f(r1*c, alt, r1*s);
+        glVertex3f(r2*c, alt+0.05f, r2*s);
+      }
+    glEnd();
 }

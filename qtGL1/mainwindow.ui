@@ -17,10 +17,10 @@
    <widget class="MyQGLViewer" name="glViewer" native="true">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>100</y>
-      <width>120</width>
-      <height>80</height>
+      <x>20</x>
+      <y>10</y>
+      <width>100</width>
+      <height>100</height>
      </rect>
     </property>
    </widget>
@@ -31,7 +31,7 @@
      <x>0</x>
      <y>0</y>
      <width>765</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
