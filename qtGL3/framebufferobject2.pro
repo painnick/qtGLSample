@@ -21,3 +21,5 @@ contains(QT_CONFIG, opengles.) {
 
 FORMS += \
     mainwindow.ui
+
+LIBS += -lGLU

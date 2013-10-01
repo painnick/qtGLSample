@@ -42,6 +42,7 @@
 #include <QtGui/QImage>
 
 #include <math.h>
+#include <GL/glu.h>
 
 static GLint cubeArray[][3] = {
     {0, 0, 0}, {0, 1, 0}, {1, 1, 0}, {1, 0, 0},
@@ -78,8 +79,8 @@ GLWidget::GLWidget(QWidget *parent)
     // create the framebuffer object - make sure to have a current
     // context before creating it
     makeCurrent();
-    fbo = new QGLFramebufferObject(512, 512);
-    timerId = startTimer(20);
+    fbo = new QGLFramebufferObject(256, 256);
+    timerId = startTimer(5);
     setWindowTitle(tr("OpenGL framebuffer objects 2"));
 }
 
@@ -221,6 +222,11 @@ void GLWidget::paintGL()
     drawCube(0, 0.0f, 1.5f, 2.5f, 1.5f);
     drawCube(1, 1.0f, 2.0f, 2.5f, 2.0f);
     drawCube(2, 2.0f, 3.5f, 2.5f, 2.5f);
+
+    GLUquadricObj* obj = gluNewQuadric();
+    gluCylinder(obj, 1.0, 0, 1, 30, 30);
+    gluDeleteQuadric(obj);
+
     glPopMatrix();
 }
 
