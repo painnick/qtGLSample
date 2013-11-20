@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
-    QRect rect = ui->centralWidget->geometry();
+    QRect rect = QRect(0, 0, 600, 600); //ui->centralWidget->geometry();
     ui->glViewer->setGeometry(rect);
 }
 
